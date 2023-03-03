@@ -117,6 +117,10 @@ if (isset($_REQUEST['CALL_AJAX'])) {
 	echo	json_encode($result);
 }
 
+/**
+ * 認証番号を生成する
+ * @return string 認証番号
+ */
 function generateNumber() {
 
 	$result = '';
@@ -127,6 +131,13 @@ function generateNumber() {
 	return $result;
 }
 
+/**
+ * 認証番号を更新する
+ * @param PDO $db ＤＢ接続
+ * @param unknown $md5key ＭＤ５キー
+ * @param unknown $value 認証番号
+ * @return number 更新したレコード数
+ */
 function updateMD5Key(PDO $db, $md5key, $value) {
 
 	$SQL = <<<EOF
@@ -143,6 +154,12 @@ EOF;
 	return $stmt->rowCount();
 }
 
+/**
+ * 認証番号を登録する
+ * @param PDO $db ＤＢ接続
+ * @param unknown $md5key ＭＤ５キー
+ * @param unknown $value 認証番号
+ */
 function registerMD5Key(PDO $db, $md5key, $value) {
 
 	$SQL = <<<EOF
@@ -155,6 +172,13 @@ EOF;
 		':md5key'	=> $md5key));
 }
 
+/**
+ * 認証番号を照合する
+ * @param PDO $db ＤＢ接続
+ * @param unknown $md5key ＭＤ５キー
+ * @param unknown $value 認証番号
+ * @return number 照合できたら０、出来なかったら－１
+ */
 function verifyNumber(PDO $db, $md5key, $value) {
 
 	$SQL = <<<EOF
@@ -178,10 +202,12 @@ EOF;
 	return $result;
 }
 
-function register(PDO $db, $data) {
-
-}
-
+/**
+ * ＱＴＨを取得
+ * @param PDO $db ＤＢ接続
+ * @param unknown $code JCC/JCGコード
+ * @return string|mixed ＱＴＨ
+ */
 function getQTH(PDO $db, $code) {
 
 	$result = '';
@@ -206,6 +232,11 @@ EOF;
 	return $result;
 }
 
+/**
+ * 都道府県の一覧を取得
+ * @param PDO $db ＤＢ接続
+ * @return array 都道府県の一覧
+ */
 function getPrefList(PDO $db) {
 
 	$SQL = <<<EOF
@@ -231,6 +262,12 @@ EOF;
 	return $result;
 }
 
+/**
+ * 市郡以下の一覧を取得
+ * @param PDO $db ＤＢ接続
+ * @param unknown $jisCode ＪＩＳコード
+ * @return array 市郡以下の一覧
+ */
 function getCityList(PDO $db, $jisCode) {
 
 	$SQL = <<<EOF
@@ -262,6 +299,11 @@ EOF;
 	return $result;
 }
 
+/**
+ * 周波数帯の一覧を取得
+ * @param PDO $db ＤＢ接続
+ * @return mixed[] 周波数帯の一覧
+ */
 function getFreqList(PDO $db) {
 
 	$result = array();

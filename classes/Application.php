@@ -90,11 +90,20 @@ class Application {
 		}
 	}
 
+	/**
+	 * 値がセットされているか調べる
+	 * @param unknown $name プロパティ名
+	 * @return unknown セットされていたらtrue、されていなかったらfalse
+	 */
 	function __isset($name) {
 
 		return isset($this->{$name});
 	}
 
+	/**
+	 * アワード申請書の内容を配列で返す
+	 * @return string[]|array[]|NULL[] アワード申請書のデータ
+	 */
 	public function toArray() {
 
 		$result = array(
@@ -122,6 +131,10 @@ class Application {
 		return $result;
 	}
 
+	/**
+	 * アワード申請書を登録
+	 * @param PDO $db ＤＢ接続
+	 */
 	public function register(PDO $db) {
 
 		if ($this->update($db) == 0) {
@@ -129,6 +142,11 @@ class Application {
 		}
 	}
 
+	/**
+	 * アワード申請書を更新
+	 * @param PDO $db ＤＢ接続
+	 * @return number 更新したレコード数
+	 */
 	public function update(PDO $db) {
 
 		$SQL = <<<EOF
@@ -167,6 +185,10 @@ EOF;
 		return $stmt->rowCount();
 	}
 
+	/**
+	 * アワード申請書を追加
+	 * @param PDO $db ＤＢ接続
+	 */
 	public function insert(PDO $db) {
 
 		$SQL = <<<EOF
@@ -190,6 +212,13 @@ EOF;
 			':remarks'		=> (empty($this->remarks)	? NULL : $this->remarks)));
 	}
 
+	/**
+	 * 指定した番号のアワード申請書を取得
+	 * @param PDO $db ＤＢ接続
+	 * @param unknown $prise 賞別
+	 * @param unknown $pubNumber 発行番号
+	 * @return Application|Application[] アワード申請書データ
+	 */
 	public static function get(PDO $db, $prise = null, $pubNumber = null) {
 
 		$params = array();
@@ -254,6 +283,12 @@ EOF;
 		return $result;
 	}
 
+	/**
+	 * 発行番号を取得
+	 * @param PDO $db ＤＢ接続
+	 * @param unknown $prise 賞別
+	 * @return number 発行番号
+	 */
 	public static function getPublishNumber(PDO $db, $prise) {
 
 		$result = 1;

@@ -759,6 +759,9 @@ function showApplication(target) {
 	location.href = "awardView.php?ACTION=view&prise=" + key.prise + "&pubNumber=" + key.number;
 }
 
+/**
+ * 賞別のリストを取得
+ */
 function getPriseList() {
 
 	$.ajax({
@@ -1002,6 +1005,9 @@ function publish(target) {
 	});
 }
 
+/**
+ * 申請書を登録
+ */
 function register() {
 
 	let params = {

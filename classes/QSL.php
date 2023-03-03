@@ -65,11 +65,20 @@ class QSL {
 		}
 	}
 
+	/**
+	 * 値がセットされているか調べる
+	 * @param unknown $name プロパティ名
+	 * @return unknown セットされていたらtrue、されていなかったらfalse
+	 */
 	function __isset($name) {
 
 		return isset($this->{$name});
 	}
 
+	/**
+	 * ＱＳＬリストの内容を配列で返す
+	 * @return array[]|NULL[]|string[] ＱＳＬリストの内容
+	 */
 	public function toArray() {
 
 		return array(
@@ -83,6 +92,13 @@ class QSL {
 			'qth'			=> (empty($this->qth)		? NULL : $this->qth));
 	}
 
+	/**
+	 * 指定した番号のＱＳＬリストを取得
+	 * @param PDO $db ＤＢ接続
+	 * @param unknown $prise 賞別
+	 * @param unknown $pubNumber 発行番号
+	 * @return Application|Application[] アワード申請書データ
+	 */
 	public static function get(PDO $db, $prise, $pubNumber) {
 
 		$result = array();
@@ -118,6 +134,12 @@ EOF;
 		return $result;
 	}
 
+	/**
+	 * 指定した番号のＱＳＬリストを削除
+	 * @param PDO $db ＤＢ接続
+	 * @param unknown $prise 賞別
+	 * @param unknown $pubNumber 発行番号
+	 */
 	public static function delete(PDO $db, $prise, $pubNumber) {
 
 		$params = array(
@@ -133,6 +155,11 @@ EOF;
 		$stmt->execute($params);
 	}
 
+	/**
+	 * ＱＳＬリストを追加
+	 * @param PDO $db ＤＢ接続
+	 * @param array $source 元データ
+	 */
 	public static function insert(PDO $db, array $source) {
 
 		$SQL = <<<EOF
