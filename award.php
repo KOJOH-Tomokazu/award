@@ -136,9 +136,9 @@ WHERE
 	md5key	= :md5key
 EOF;
 	$stmt = $db->prepare($SQL);
-	$stmt->bindValue(':value',	$value);
-	$stmt->bindValue(':md5key',	$md5key);
-	$stmt->execute();
+	$stmt->execute(array(
+		':value'	=> $value,
+		':md5key'	=> $md5key));
 
 	return $stmt->rowCount();
 }
@@ -150,9 +150,9 @@ INSERT INTO verify (md5key,  value)
 VALUES            (:md5key, :value)
 EOF;
 	$stmt = $db->prepare($SQL);
-	$stmt->bindValue(':value',	$value);
-	$stmt->bindValue(':md5key',	$md5key);
-	$stmt->execute();
+	$stmt->execute(array(
+		':value'	=> $value,
+		':md5key'	=> $md5key));
 }
 
 function verifyNumber(PDO $db, $md5key, $value) {
@@ -167,9 +167,9 @@ WHERE
 AND	value	= :value
 EOF;
 	$stmt = $db->prepare($SQL);
-	$stmt->bindValue(':value',	$value);
-	$stmt->bindValue(':md5key',	$md5key);
-	$stmt->execute();
+	$stmt->execute(array(
+		':value'	=> $value,
+		':md5key'	=> $md5key));
 
 	$record = $stmt->fetch(PDO::FETCH_NUM);
 	$result = ($record[0] == 1 ? 0 : -1);
@@ -194,8 +194,8 @@ WHERE
 	code	= :code
 EOF;
 	$stmt = $db->prepare($SQL);
-	$stmt->bindValue(":code",	$code);
-	$stmt->execute();
+	$stmt->execute(array(
+		':code'	=> $code));
 
 	while ($record = $stmt->fetch()) {
 		$result = $record['name'];
@@ -253,8 +253,8 @@ ORDER BY
     JIS2.jiscode
 EOF;
 	$stmt = $db->prepare($SQL);
-	$stmt->bindValue(':jiscode',	$jisCode);
-	$stmt->execute();
+	$stmt->execute(array(
+		':jiscode'	=> $jisCode));
 
 	$result = $stmt->fetchAll();
 	$stmt->closeCursor();
