@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<link rel="stylesheet" href="libs/jQuery/jquery-ui.css" />
+<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.css" />
+<link rel="stylesheet" href="award.css" />
+<script src="libs/jQuery/jquery.js"></script>
+<script src="libs/jQuery/jquery-ui.js"></script>
+<script src="libs/bootstrap/js/bootstrap.js"></script>
+<!--
+<script src="libs/common.js"></script>
+-->
+<script src="award.js"></script>
+<title>尾道２１世紀アワード管理</title>
+<script type="text/javascript">
+
+/**
+ * 読み込み完了時の処理
+ * @param event イベント
+ */
+$(window).on('load', function(e) {
+
+	$('table#admin tbody').scroll(function(e) {
+		$('table#admin thead').scrollLeft($(this).scrollLeft());
+	});
+
+	listApplications();
+	$(window).resize();
+});
+
+$(window).on('resize', function(e) {
+
+	let marginH = parseFloat($('body').css('margin-left')) + parseFloat($('body').css('margin-right'))  + parseFloat($('body').css('padding-left')) + parseFloat($('body').css('padding-right'));
+	let marginV = parseFloat($('body').css('margin-top'))  + parseFloat($('body').css('margin-bottom')) + parseFloat($('body').css('padding-top'))  + parseFloat($('body').css('padding-bottom'));
+
+	$('table#admin thead').width( $(this).innerWidth());
+	$('table#admin tbody').width( $(this).innerWidth());
+	$('table#admin tbody').height($(this).innerHeight() - $('table#admin thead').outerHeight());
+});
+</script>
+<style type="text/css">
+body {
+	overflow:		hidden;
+}
+</style>
+</head>
+<body>
+<table id="admin" class="table table-bordered">
+	<thead>
+		<tr>
+			<th id="appdate"   rowspan="2">申請年月日<br />発行年月日</th>
+			<th id="prise"                >種別</th>
+			<th id="callsign"  rowspan="2">コールサイン</th>
+			<th id="opname"    rowspan="2"><span class="small">ふりがな</span><br />お名前</th>
+			<th id="opmail"               >メールアドレス</th>
+			<th id="opaddress" rowspan="2">ご住所</th>
+			<th id="buttons"   rowspan="2"></th>
+		</tr>
+		<tr>
+			<th>発行番号</th>
+			<th>特記事項</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+<!-- ダイアログ -->
+<div id="dialog"></div>
+<!-- 待機中背景 -->
+<div id="wait"></div>
+</body>
+</html>

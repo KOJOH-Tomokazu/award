@@ -1,0 +1,409 @@
+@charset "UTF-8";
+
+body {
+	font-family:	sans-serif;
+}
+
+button.btn {
+	background:		#CCCCCC;
+}
+
+div#freqWindow {
+	border:			solid 2px #8888FF;
+	background:		#FFFFFF;
+	padding:		5px;
+	text-align:		center;
+	display:		none;
+	position:		absolute;
+	z-index:		10000;
+}
+
+div#modeWindow {
+	border:			solid 2px #8888FF;
+	background:		#FFFFFF;
+	padding:		5px;
+	text-align:		center;
+	display:		none;
+	position:		absolute;
+	z-index:		10000;
+}
+
+.mode {
+	text-align:		center;
+}
+
+@media print {
+	body {
+		padding-left:	20px;
+	}
+
+	table th {
+		background:		none;
+		color:			#000000 !important;
+	}
+
+	table td {
+		background:		none;
+		color:			#000000;
+	}
+}
+
+/* ========================================================================== */
+/* 申請情報                                                                   */
+/* ========================================================================== */
+table#info {
+}
+
+/** 賞別 */
+table#info th#prise {
+}
+table#info col#prise {
+	width:				170px;
+	min-width:			170px;
+	max-width:			170px;
+}
+table#info td.prise {
+}
+
+/** 特記事項 */
+table#info th#remarks {
+}
+table#info col#remarks {
+	width:				800px;
+	min-width:			800px;
+	max-width:			800px;
+}
+table#info td.remarks {
+}
+
+/* ========================================================================== */
+/* 申請情報(表示用)                                                           */
+/* ========================================================================== */
+table#info_view {
+	margin-bottom:		20px;
+}
+
+table#info_view th {
+	text-align:			center;
+	background-color:	#215591;
+	color:				#FFFFFF;
+}
+
+/** 賞別 */
+table#info_view th#prise {
+	width:				115px;
+	min-width:			115px;
+	max-width:			115px;
+}
+table#info_view td.prise {
+}
+
+/** 特記事項 */
+table#info_view th#remarks {
+	width:				598px;
+	min-width:			598px;
+	max-width:			598px;
+}
+table#info_view td.remarks {
+}
+
+/* ========================================================================== */
+/* 申請日等                                                                   */
+/* ========================================================================== */
+table#dates {
+	margin-left:		auto;
+	margin-bottom:		50px;
+}
+
+table#dates th {
+	text-align:			center;
+	background-color:	#215591;
+	color:				#FFFFFF;
+}
+
+table#dates th.date {
+	width:				100px;
+	min-width: 			100px;
+	max-width:			100px;
+}
+
+table#dates td.date {
+	width:				100px;
+	min-width: 			100px;
+	max-width:			100px;
+	text-align:			center;
+}
+
+table#dates th.number {
+	width:				100px;
+	min-width: 			100px;
+	max-width:			100px;
+}
+table#dates td.number {
+	width:				80px;
+	min-width: 			80px;
+	max-width:			80px;
+	text-align:			center;
+}
+
+/* ========================================================================== */
+/* 申請者                                                                     */
+/* ========================================================================== */
+/** 都道府県リスト */
+select#opPrefCode {
+	width:				140px;
+	min-width:			140px;
+	max-width:			140px;
+}
+/** 市区町村リスト */
+select#opJisCode {
+	width:				210px;
+	min-width:			210px;
+	max-width:			210px;
+}
+
+/* ========================================================================== */
+/* 申請者(表示用)                                                             */
+/* ========================================================================== */
+table#owner_view {
+	margin-bottom:		20px;
+}
+
+table#owner_view th {
+	text-align:			center;
+	background-color:	#215591;
+	color:				#FFFFFF;
+	line-height:		100%;
+}
+
+table#owner_view col#col1 {
+	width:				1em;
+	min-width:			1em;
+	max-width:			1em;
+}
+table#owner_view col#col2 {
+	width:				120px;
+	min-width:			120px;
+	max-width:			120px;
+}
+table#owner_view col#col3 {
+	width:				560px;
+	min-width:			560px;
+	max-width:			560px;
+}
+
+/* ========================================================================== */
+/* ＱＳＬのリスト                                                             */
+/* ========================================================================== */
+/** ＪＣＣ/ＪＣＧコード */
+input.wkCode {
+	width:				80px;
+	min-width:			80px;
+	max-width:			80px;
+}
+
+/* ========================================================================== */
+/* ＱＳＬのリスト(表示用)
+ * ========================================================================== */
+table#list_view {
+}
+
+table#list_view th {
+	text-align:			center;
+	background-color:	#215591;
+	color:				#FFFFFF;
+	line-height:		100%;
+}
+
+/** 文字 */
+table#list_view thead th#character {
+}
+table#list_view tbody td.character {
+}
+
+/** コールサイン */
+table#list_view thead th#callsign {
+	width:				120px;
+	min-width:			120px;
+	max-width:			120px;
+}
+table#list_view tbody td.callsign {
+}
+
+/** 交信(受信)日時 */
+table#list_view thead th#datetime {
+	width:				150px;
+	min-width:			150px;
+	max-width:			150px;
+}
+table#list_view tbody td.datetime {
+	text-align:			center;
+}
+
+/** 周波数帯 */
+table#list_view thead th#frequency {
+	width:				90px;
+	min-width:			90px;
+	max-width:			90px;
+}
+table#list_view tbody td.frequency {
+	text-align:			right;
+}
+
+/** 電波の型式 */
+table#list_view thead th#mode {
+	width:				70px;
+	min-width:			70px;
+	max-width:			70px;
+}
+table#list_view tbody td.mode {
+}
+
+/** 相手局ＱＴＨ */
+table#list_view thead th#qth {
+	width:				250px;
+	min-width:			250px;
+	max-width:			250px;
+}
+table#list_view tbody td.qth {
+}
+
+/* ========================================================================== */
+/* 認証番号                                                                   */
+/* ========================================================================== */
+table#verify {
+}
+
+table#verify col#number {
+	width:				170px;
+	min-width:			170px;
+	max-width:			170px;
+}
+table#verify col#vNumber {
+	width:				800px;
+	min-width:			800px;
+	max-width:			800px;
+}
+
+
+/* ========================================================================== */
+/* 管理者用一覧                                                               */
+/* ========================================================================== */
+table#admin {
+	border:				none;
+}
+
+table#admin thead {
+	display:			block;
+	overflow-x:			hidden;
+	overflow-y:			scroll;
+}
+table#admin thead th {
+	color:				#FFFFFF;
+	background-color:	#215591;
+}
+
+table#admin tbody {
+	display:			block;
+	overflow:			scroll;
+}
+
+/** 未発行 */
+table#admin tr.notPublished td {
+	background-color:	#FFFFE0;
+}
+
+/** 申請年月日・発行年月日 */
+table#admin thead th#appdate {
+	width:				110px;
+	min-width:			110px;
+	max-width:			110px;
+}
+table#admin tbody td.appdate {
+	white-space:		nowrap;
+	width:				110px;
+	min-width:			110px;
+	max-width:			110px;
+}
+
+/** 種別・発行番号 */
+table#admin thead th#prise {
+	width:				90px;
+	min-width:			90px;
+	max-width:			90px;
+}
+table#admin tbody td.prise {
+	width:				90px;
+	min-width:			90px;
+	max-width:			90px;
+}
+
+/** コールサイン */
+table#admin thead th#callsign {
+	width:				120px;
+	min-width:			120px;
+	max-width:			120px;
+}
+table#admin tbody td.callsign {
+	width:				120px;
+	min-width:			120px;
+	max-width:			120px;
+}
+
+/** ふりがな・お名前 */
+table#admin thead th#opname {
+	width:				120px;
+	min-width:			120px;
+	max-width:			120px;
+}
+table#admin tbody td.opname {
+	width:				120px;
+	min-width:			120px;
+	max-width:			120px;
+	line-height:		100%;
+}
+table#admin tbody td.opname span.ruby {
+	display:			block;
+	font-size:			70%;
+}
+
+/** メールアドレス */
+table#admin thead th#opmail {
+	width:				300px;
+	min-width:			300px;
+	max-width:			300px;
+}
+table#admin tbody td.opmail {
+	overflow:			hidden;
+	width:				300px;
+	min-width:			300px;
+	max-width:			300px;
+}
+
+/** ご住所 */
+table#admin thead th#opaddress {
+	width:				350px;
+	min-width:			350px;
+	max-width:			350px;
+}
+table#admin tbody td.opaddress {
+	width:				350px;
+	min-width:			350px;
+	max-width:			350px;
+}
+
+/** ボタン列 */
+table#admin thead th#buttons {
+	width:				150px;
+	min-width:			150px;
+	max-width:			150px;
+}
+table#admin tbody td.buttons {
+	width:				150px;
+	min-width:			150px;
+	max-width:			150px;
+}
+table#admin tbody td.buttons button {
+	margin-right:		5px;
+}
+
