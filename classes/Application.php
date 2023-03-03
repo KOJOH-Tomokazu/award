@@ -122,7 +122,7 @@ class Application {
 		return $result;
 	}
 
-	public function regist(PDO $db) {
+	public function register(PDO $db) {
 
 		if ($this->update($db) == 0) {
 			$this->insert($db);

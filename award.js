@@ -1002,10 +1002,10 @@ function publish(target) {
 	});
 }
 
-function regist() {
+function register() {
 
 	let params = {
-		CALL_AJAX:		'regist',
+		CALL_AJAX:		'register',
 		prise:			$('select#prise').val(),
 		remarks:		$('input#remarks').val(),
 		opCallsign:		$('input#opCallsign').val(),

@@ -21,14 +21,14 @@ if (isset($_REQUEST['CALL_AJAX'])) {
 			$result['NUMBER']	= generateNumber();
 
 			if (updateMD5Key($db, $result['MD5KEY'], $result['NUMBER']) == 0) {
-				registMD5Key($db, $result['MD5KEY'], $result['NUMBER']);
+				registerMD5Key($db, $result['MD5KEY'], $result['NUMBER']);
 			}
 
 		} else if ($_REQUEST['CALL_AJAX'] == 'verify') {
 			// 認証番号の照合
 			$result['RESULTCD']	= verifyNumber($db, $_REQUEST['MD5KEY'], $_REQUEST['NUMBER']);
 
-		} else if ($_REQUEST['CALL_AJAX'] == 'regist') {
+		} else if ($_REQUEST['CALL_AJAX'] == 'register') {
 			// 申請書の登録
 			$pubNumber = Application::getPublishNumber($db, $_REQUEST['prise']);
 			$application = new Application(array(
@@ -44,7 +44,7 @@ if (isset($_REQUEST['CALL_AJAX'])) {
 					'opjiscode'		=> $_REQUEST['opJisCode'],
 					'opaddress'		=> $_REQUEST['opAddress'],
 					'remarks'		=> $_REQUEST['remarks']));
-			$application->regist($db);
+			$application->register($db);
 			// ＱＳＬリストの登録
 			$qsls = array();
 			for ($i = 0; $i < 19; $i++) {
@@ -66,7 +66,7 @@ if (isset($_REQUEST['CALL_AJAX'])) {
 			$application = Application::get($db, $_REQUEST['prise'], $_REQUEST['pubNumber']);
 			$application->pubDate	= $_REQUEST['pubDate'];
 			$application->opAddress	= $_REQUEST['opAddress'];
-			$application->regist($db);
+			$application->register($db);
 
 		} else if ($_REQUEST['CALL_AJAX'] == 'getName') {
 			// ＱＴＨ取得
@@ -143,7 +143,7 @@ EOF;
 	return $stmt->rowCount();
 }
 
-function registMD5Key(PDO $db, $md5key, $value) {
+function registerMD5Key(PDO $db, $md5key, $value) {
 
 	$SQL = <<<EOF
 INSERT INTO verify (md5key,  value)
@@ -178,7 +178,7 @@ EOF;
 	return $result;
 }
 
-function regist(PDO $db, $data) {
+function register(PDO $db, $data) {
 
 }
 

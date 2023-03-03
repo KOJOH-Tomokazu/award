@@ -33,9 +33,9 @@ $(window).on('load', function(e) {
 
 	sessionId = '<?= session_id() ?>';
 
-	$('button#regist').click(function(e) {
+	$('button#register').click(function(e) {
 		if (checkSubmit()) {
-			regist();
+			register();
 		}
 	});
 
@@ -219,8 +219,8 @@ $(window).on('load', function(e) {
 			</div>
 		</div>
 	</div>
-	<button id="regist" class="btn btn-lg" title="入力された内容をチェック後、エラーがなければ送信します">送信</button>
-	<button id="clear"  class="btn btn-lg" title="入力された内容を消去します">クリア</button>
+	<button id="register" class="btn btn-lg" title="入力された内容をチェック後、エラーがなければ送信します">送信</button>
+	<button id="clear"    class="btn btn-lg" title="入力された内容を消去します">クリア</button>
 	<p>申請手数料は下記ゆうちょ銀行口座へ送金をお願いします。<br />ゆうちょ銀行：記号１５１４０、番号２８９４３９４１、名義７２２ハムクラブ<br />他行からは、ゆうちょ銀行 五一八(ごいちはち)店 普通２８９４３９４</p>
 <?php
 session_write_close();
