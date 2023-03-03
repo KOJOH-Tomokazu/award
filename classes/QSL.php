@@ -73,22 +73,22 @@ class QSL {
 	public function toArray() {
 
 		return array(
-				'prise'			=> $this->prise->id,
-				'pubNumber'		=> $this->pubNumber,
-				'qslNumber'		=> $this->qslNumber,
-				'callsign'		=> $this->callsign,
-				'datetime'		=> (empty($this->datetime)	? NULL : $this->datetime->format('Y-m-d H:i')),
-				'frequency'		=> (empty($this->frequency)	? NULL : $this->frequency),
-				'mode'			=> (empty($this->mode)		? NULL : $this->mode),
-				'qth'			=> (empty($this->qth)		? NULL : $this->qth));
+			'prise'			=> $this->prise->id,
+			'pubNumber'		=> $this->pubNumber,
+			'qslNumber'		=> $this->qslNumber,
+			'callsign'		=> $this->callsign,
+			'datetime'		=> (empty($this->datetime)	? NULL : $this->datetime->format('Y-m-d H:i')),
+			'frequency'		=> (empty($this->frequency)	? NULL : $this->frequency),
+			'mode'			=> (empty($this->mode)		? NULL : $this->mode),
+			'qth'			=> (empty($this->qth)		? NULL : $this->qth));
 	}
 
 	public static function get(PDO $db, $prise, $pubNumber) {
 
 		$result = array();
 		$params = array(
-				':prise'		=> $prise,
-				':pubnumber'	=> $pubNumber);
+			':prise'		=> $prise,
+			':pubnumber'	=> $pubNumber);
 		$SQL = <<<EOF
 SELECT
 	prise,
@@ -108,10 +108,7 @@ ORDER BY
 	qslnumber
 EOF;
 		$stmt = $db->prepare($SQL);
-		foreach ($params as $key => $value) {
-			$stmt->bindValue($key, $value);
-		}
-		$stmt->execute();
+		$stmt->execute($params);
 
 		while ($record = $stmt->fetch()) {
 			$result[] = new QSL($record);
@@ -124,8 +121,8 @@ EOF;
 	public static function delete(PDO $db, $prise, $pubNumber) {
 
 		$params = array(
-				':prise'		=> $prise,
-				':pubnumber'	=> $pubNumber);
+			':prise'		=> $prise,
+			':pubnumber'	=> $pubNumber);
 		$SQL = <<<EOF
 DELETE FROM qsllist
 WHERE
@@ -133,10 +130,7 @@ WHERE
 AND	pubnumber	= :pubnumber
 EOF;
 		$stmt = $db->prepare($SQL);
-		foreach ($params as $key => $value) {
-			$stmt->bindValue($key, $value);
-		}
-		$stmt->execute();
+		$stmt->execute($params);
 	}
 
 	public static function insert(PDO $db, array $source) {
@@ -147,15 +141,15 @@ INSERT INTO qsllist (prise,  pubnumber,  qslnumber,  callsign,  datetime,  frequ
 EOF;
 		$stmt = $db->prepare($SQL);
 		foreach ($source as $record) {
-			$stmt->bindValue(':prise',		$record->prise->id);
-			$stmt->bindValue(':pubnumber',	$record->pubNumber);
-			$stmt->bindValue(':qslnumber',	$record->qslNumber);
-			$stmt->bindValue(':callsign',	$record->callsign);
-			$stmt->bindValue(':datetime',	(empty($record->datetime)	? NULL : $record->datetime->format('Y-m-d H:i')));
-			$stmt->bindValue(':frequency',	(empty($record->frequency)	? NULL : $record->frequency));
-			$stmt->bindValue(':mode',		(empty($record->mode)		? NULL : $record->mode));
-			$stmt->bindValue(':qth',		(empty($record->qth)		? NULL : $record->qth));
-			$stmt->execute();
+			$stmt->execute(array(
+				':prise'		=> $record->prise->id,
+				':pubnumber'	=> $record->pubNumber,
+				':qslnumber'	=> $record->qslNumber,
+				':callsign'		=> $record->callsign,
+				':datetime'		=> (empty($record->datetime)	? NULL : $record->datetime->format('Y-m-d H:i')),
+				':frequency'	=> (empty($record->frequency)	? NULL : $record->frequency),
+				':mode'			=> (empty($record->mode)		? NULL : $record->mode),
+				':qth'			=> (empty($record->qth)		? NULL : $record->qth)));
 		}
 	}
 }

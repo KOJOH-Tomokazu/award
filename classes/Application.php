@@ -98,23 +98,23 @@ class Application {
 	public function toArray() {
 
 		$result = array(
-				'prise'			=> $this->prise->id,
-				'priseMark'		=> $this->prise->prefix,
-				'priseName'		=> $this->prise->name,
-				'pubNumber'		=> $this->pubNumber,
-				'appDate'		=> $this->appDate->format('Y-m-d'),
-				'pubDate'		=> (empty($this->pubDate)	? NULL : $this->pubDate->format('Y-m-d')),
-				'opCallsign'	=> $this->opCallsign,
-				'opNamek'		=> $this->opNamek,
-				'opNamer'		=> $this->opNamer,
-				'opMail'		=> (empty($this->opMail)	? NULL : $this->opMail),
-				'opZipCode'		=> substr($this->opZipCode, 0, 3). '-'. substr($this->opZipCode, 3),
-				'opPrefCode'	=> $this->opPrefCode,
-				'opJisCode'		=> $this->opJisCode,
-				'opTownName'	=> $this->opTownName,
-				'opAddress'		=> $this->opAddress,
-				'remarks'		=> $this->remarks,
-				'qslList'		=> array());
+			'prise'			=> $this->prise->id,
+			'priseMark'		=> $this->prise->prefix,
+			'priseName'		=> $this->prise->name,
+			'pubNumber'		=> $this->pubNumber,
+			'appDate'		=> $this->appDate->format('Y-m-d'),
+			'pubDate'		=> (empty($this->pubDate)	? NULL : $this->pubDate->format('Y-m-d')),
+			'opCallsign'	=> $this->opCallsign,
+			'opNamek'		=> $this->opNamek,
+			'opNamer'		=> $this->opNamer,
+			'opMail'		=> (empty($this->opMail)	? NULL : $this->opMail),
+			'opZipCode'		=> substr($this->opZipCode, 0, 3). '-'. substr($this->opZipCode, 3),
+			'opPrefCode'	=> $this->opPrefCode,
+			'opJisCode'		=> $this->opJisCode,
+			'opTownName'	=> $this->opTownName,
+			'opAddress'		=> $this->opAddress,
+			'remarks'		=> $this->remarks,
+			'qslList'		=> array());
 		foreach ($this->qslList as $qsl) {
 			$result['qslList'][] = $qsl->toArray();
 		}
@@ -149,20 +149,20 @@ WHERE
 AND	pubnumber	= :pubnumber
 EOF;
 		$stmt = $db->prepare($SQL);
-		$stmt->bindValue(':prise',		$this->prise->id);
-		$stmt->bindValue(':pubnumber',	$this->pubNumber);
-		$stmt->bindValue(':appdate',	$this->appDate->format('Y-m-d'));
-		$stmt->bindValue(':pubdate',	(empty($this->pubDate)	? NULL : $this->pubDate->format('Y-m-d')));
-		$stmt->bindValue(':opcallsign',	$this->opCallsign);
-		$stmt->bindValue(':opnamek',	$this->opNamek);
-		$stmt->bindValue(':opnamer',	$this->opNamer);
-		$stmt->bindValue(':opmail',		(empty($this->opMail)	? NULL : $this->opMail));
-		$stmt->bindValue(':opzipcode',	$this->opZipCode);
-		$stmt->bindValue(':opprefcode',	$this->opPrefCode);
-		$stmt->bindValue(':opjiscode',	$this->opJisCode);
-		$stmt->bindValue(':opaddress',	$this->opAddress);
-		$stmt->bindValue(':remarks',	(empty($this->remarks)	? NULL : $this->remarks));
-		$stmt->execute();
+		$stmt->execute(array(
+			':prise'		=> $this->prise->id,
+			':pubnumber'	=> $this->pubNumber,
+			':appdate'		=> $this->appDate->format('Y-m-d'),
+			':pubdate'		=> (empty($this->pubDate)	? NULL : $this->pubDate->format('Y-m-d')),
+			':opcallsign'	=> $this->opCallsign,
+			':opnamek'		=> $this->opNamek,
+			':opnamer'		=> $this->opNamer,
+			':opmail'		=> (empty($this->opMail)	? NULL : $this->opMail),
+			':opzipcode'	=> $this->opZipCode,
+			':opprefcode'	=> $this->opPrefCode,
+			':opjiscode'	=> $this->opJisCode,
+			':opaddress'	=> $this->opAddress,
+			':remarks'		=> (empty($this->remarks)	? NULL : $this->remarks)));
 
 		return $stmt->rowCount();
 	}
@@ -174,20 +174,20 @@ INSERT INTO application (prise,  pubnumber,  appdate,  pubdate,  opcallsign,  op
                 VALUES (:prise, :pubnumber, :appdate, :pubdate, :opcallsign, :opnamek, :opnamer, :opmail, :opzipcode, :opprefcode, :opjiscode, :opaddress, :remarks)
 EOF;
 		$stmt = $db->prepare($SQL);
-		$stmt->bindValue(':prise',		$this->prise->id);
-		$stmt->bindValue(':pubnumber',	$this->pubNumber);
-		$stmt->bindValue(':appdate',	$this->appDate->format('Y-m-d'));
-		$stmt->bindValue(':pubdate',	(empty($this->pubDate)	? NULL : $this->pubDate->format('Y-m-d')));
-		$stmt->bindValue(':opcallsign',	$this->opCallsign);
-		$stmt->bindValue(':opnamek',	$this->opNamek);
-		$stmt->bindValue(':opnamer',	$this->opNamer);
-		$stmt->bindValue(':opmail',		(empty($this->opMail)	? NULL : $this->opMail));
-		$stmt->bindValue(':opzipcode',	$this->opZipCode);
-		$stmt->bindValue(':opprefcode',	$this->opPrefCode);
-		$stmt->bindValue(':opjiscode',	$this->opJisCode);
-		$stmt->bindValue(':opaddress',	$this->opAddress);
-		$stmt->bindValue(':remarks',	(empty($this->remarks)	? NULL : $this->remarks));
-		$stmt->execute();
+		$stmt->execute(array(
+			':prise'		=> $this->prise->id,
+			':pubnumber'	=> $this->pubNumber,
+			':appdate'		=> $this->appDate->format('Y-m-d'),
+			':pubdate'		=> (empty($this->pubDate)	? NULL : $this->pubDate->format('Y-m-d')),
+			':opcallsign'	=> $this->opCallsign,
+			':opnamek'		=> $this->opNamek,
+			':opnamer'		=> $this->opNamer,
+			':opmail'		=> (empty($this->opMail)	? NULL : $this->opMail),
+			':opzipcode'	=> $this->opZipCode,
+			':opprefcode'	=> $this->opPrefCode,
+			':opjiscode'	=> $this->opJisCode,
+			':opaddress'	=> $this->opAddress,
+			':remarks'		=> (empty($this->remarks)	? NULL : $this->remarks)));
 	}
 
 	public static function get(PDO $db, $prise = null, $pubNumber = null) {
@@ -223,8 +223,8 @@ EOF;
 		if ($prise !== null && $pubNumber !== null) {
 			$SQL .= ' WHERE APP.prise = :prise AND APP.pubnumber = :pubnumber';
 			$params = array(
-					':prise'		=> $prise,
-					':pubnumber'	=> $pubNumber);
+				':prise'		=> $prise,
+				':pubnumber'	=> $pubNumber);
 		}
 		$SQL .= <<<EOF
 
@@ -234,10 +234,7 @@ ORDER BY
 	APP.pubnumber
 EOF;
 		$stmt = $db->prepare($SQL);
-		foreach ($params as $key => $value) {
-			$stmt->bindValue($key, $value);
-		}
-		$stmt->execute();
+		$stmt->execute($params);
 
 		if ($prise !== null && $pubNumber !== null) {
 			$record = $stmt->fetch();
@@ -269,8 +266,8 @@ WHERE
 	prise	= :prise
 EOF;
 		$stmt = $db->prepare($SQL);
-		$stmt->bindValue(':prise',	$prise);
-		$stmt->execute();
+		$stmt->execute(array(
+			':prise'	=> $prise));
 
 		while ($record = $stmt->fetch()) {
 			$result = $record['maxnumber'] + 1;
