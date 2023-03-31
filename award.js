@@ -515,7 +515,7 @@ function checkSubmit() {
 
 	// 認証番号のチェック
 	verifyNumber($('input#vNumber').val()).done(function(data, textStatus, jqXHR) {
-		if ($('input#vNumber').val() == "" || data.RESULTCD != 0) {
+		if ($('input#vNumber').val() == "" || !data.success) {
 			$('input#vNumber').addClass('error').prop('title', '認証番号を左記の通り入力してください。');
 			getNumber();
 			result = false;
@@ -774,7 +774,7 @@ function getPriseList() {
 
 		}
 	}).done(function(data, textStatus, jqXHR) {
-		if (data.RESULTCD == 0) {
+		if (data.success) {
 			for (let prise in data.LIST) {
 				$('select#prise').append(
 					$('<option />').val(prise).html(data.LIST[prise].name));
@@ -782,7 +782,7 @@ function getPriseList() {
 			$('select#prise').prop('selectedIndex', -1);
 
 		} else {
-			showAlertDialog('尾道２１世紀アワード', data.MESSAGE);
+			showAlertDialog('尾道２１世紀アワード', data.message);
 		}
 
 	}).fail(function (jqXHR, textStatus, errorThrown) {
@@ -808,7 +808,7 @@ function getPrefList() {
 			$('select#opPrefCode').prop('disabled', true);
 		}
 	}).done(function(data, textStatus, jqXHR) {
-		if (data.RESULTCD == 0) {
+		if (data.success) {
 			for (let i = 0; i < data.LIST.length; i++) {
 				$('select#opPrefCode').append(
 					$('<option />').val(data.LIST[i].code).html(data.LIST[i].name));
@@ -816,7 +816,7 @@ function getPrefList() {
 			$('select#opPrefCode').prop('selectedIndex', -1);
 
 		} else {
-			showAlertDialog('尾道２１世紀アワード', data.MESSAGE);
+			showAlertDialog('尾道２１世紀アワード', data.message);
 		}
 
 	}).fail(function (jqXHR, textStatus, errorThrown) {
@@ -844,7 +844,7 @@ function getCityList(target) {
 			$('select#opJisCode').prop('disabled', true);
 		}
 	}).done(function(data, textStatus, jqXHR) {
-		if (data.RESULTCD == 0) {
+		if (data.success) {
 			$('select#opJisCode').empty();
 			for (let i = 0; i < data.LIST.length; i++) {
 				$('select#opJisCode').append(
@@ -853,7 +853,7 @@ function getCityList(target) {
 			$('select#opJisCode').prop('selectedIndex', -1);
 
 		} else {
-			showAlertDialog('尾道２１世紀アワード', data.MESSAGE);
+			showAlertDialog('尾道２１世紀アワード', data.message);
 		}
 
 	}).fail(function (jqXHR, textStatus, errorThrown) {
@@ -879,7 +879,7 @@ function getFreqList() {
 
 		}
 	}).done(function(data, textStatus, jqXHR) {
-		if (data.RESULTCD == 0) {
+		if (data.success) {
 			for (let id in data.LIST) {
 				$('select.wkFreq').append(
 					$('<option />').val(id).html(data.LIST[id]));
@@ -887,7 +887,7 @@ function getFreqList() {
 			$('select.wkFreq').prop('selectedIndex', -1);
 
 		} else {
-			showAlertDialog('尾道２１世紀アワード', data.MESSAGE);
+			showAlertDialog('尾道２１世紀アワード', data.message);
 		}
 
 	}).fail(function (jqXHR, textStatus, errorThrown) {
@@ -913,7 +913,7 @@ function listApplications() {
 			$('table#admin tbody').empty();
 		}
 	}).done(function(data, textStatus, jqXHR) {
-		if (data.RESULTCD == 0) {
+		if (data.success) {
 			for (let i = 0; i < data.LIST.length; i++) {
 				let record = data.LIST[i];
 
@@ -958,7 +958,7 @@ function listApplications() {
 			}
 
 		} else {
-			showAlertDialog('尾道２１世紀アワード', data.MESSAGE);
+			showAlertDialog('尾道２１世紀アワード', data.message);
 		}
 
 	}).fail(function (jqXHR, textStatus, errorThrown) {
@@ -991,11 +991,11 @@ function publish(target) {
 
 		}
 	}).done(function(data, textStatus, jqXHR) {
-		if (data.RESULTCD == 0) {
+		if (data.success) {
 			listApplications();
 
 		} else {
-			showAlertDialog('尾道２１世紀アワード', data.MESSAGE);
+			showAlertDialog('尾道２１世紀アワード', data.message);
 		}
 
 	}).fail(function (jqXHR, textStatus, errorThrown) {
@@ -1045,12 +1045,12 @@ function register() {
 
 		}
 	}).done(function(data, textStatus, jqXHR) {
-		if (data.RESULTCD == 0) {
-			showAlertDialog('アワードの申請ありがとうございます', data.MESSAGE);
+		if (data.success) {
+			showAlertDialog('アワードの申請ありがとうございます', data.message);
 			$('button#clear').click();
 
 		} else {
-			showAlertDialog('尾道２１世紀アワード', data.MESSAGE);
+			showAlertDialog('尾道２１世紀アワード', data.message);
 		}
 
 	}).fail(function (jqXHR, textStatus, errorThrown) {

@@ -7,9 +7,7 @@ error_log(print_r($_REQUEST, true));
 define('SEEDS',	'123456789ABCDEFGHIJKLMNPQRSTUVWXYZ');
 
 if (isset($_REQUEST['CALL_AJAX'])) {
-	$result = array(
-			'RESULTCD'	=> 0,
-			'MESSAGE'	=> '');
+	$result = array('success' => TRUE);
 
 	try {
 		$db	= new MyPDO('tomtom');
@@ -26,7 +24,7 @@ if (isset($_REQUEST['CALL_AJAX'])) {
 
 		} else if ($_REQUEST['CALL_AJAX'] == 'verify') {
 			// 認証番号の照合
-			$result['RESULTCD']	= verifyNumber($db, $_REQUEST['MD5KEY'], $_REQUEST['NUMBER']);
+			$result['success']	= verifyNumber($db, $_REQUEST['MD5KEY'], $_REQUEST['NUMBER']);
 
 		} else if ($_REQUEST['CALL_AJAX'] == 'register') {
 			// 申請書の登録
@@ -59,7 +57,7 @@ if (isset($_REQUEST['CALL_AJAX'])) {
 						'qth'		=> $_REQUEST['wkQth'][$i]));
 			}
 			QSL::insert($db, $qsls);
-			$result['MESSAGE'] = 'アワードの申請を受け付けました、マネージャーからの連絡をお待ちください';
+			$result['message'] = 'アワードの申請を受け付けました、マネージャーからの連絡をお待ちください';
 
 		} else if ($_REQUEST['CALL_AJAX'] == 'publish') {
 			// 発行処理・編集
@@ -106,8 +104,9 @@ if (isset($_REQUEST['CALL_AJAX'])) {
 	} catch (PDOException $pe) {
 		$db->rollBack();
 		$result = array(
-				'RESULTCD'	=> $pe->getCode(),
-				'MESSAGE'	=> $pe->getMessage());
+				'success'	=> FALSE,
+				'code'		=> $pe->getCode(),
+				'message'	=> $pe->getMessage());
 
 	} finally {
 		$db = NULL;
@@ -196,7 +195,7 @@ EOF;
 		':md5key'	=> $md5key));
 
 	$record = $stmt->fetch(PDO::FETCH_NUM);
-	$result = ($record[0] == 1 ? 0 : -1);
+	$result = boolval($record[0] == 1);
 	$stmt->closeCursor();
 
 	return $result;
